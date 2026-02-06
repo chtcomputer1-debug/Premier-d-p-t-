@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - CHT Computer</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* VARIABLES GLOBALES (cohérentes avec les autres pages) */
+        :root {
+            --primary: #0066cc;
+            --secondary: #0099ff;
+            --accent: #ff6600;
+            --accent-hover: #e55a00;
+            --dark: #1a1e2c;
+            --light-bg: #f8fafc;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --success: #10b981;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, #0055aa 0%, #0077cc 100%);
+            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 15px 35px rgba(0, 102, 204, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --sidebar-width: 280px;
+        }
+
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 100%);
+            color: var(--gray-800);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .admin-sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            padding: 30px 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 0 25px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .logo-admin {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-admin h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary) 0%, #00ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .water-drop-admin {
+            font-size: 2.5rem;
+            animation: drop 2s infinite ease-in-out;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes drop {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        .admin-info {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            margin: 0 20px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-info h3 {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .admin-info p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            flex-grow: 1;
+            padding: 0 20px;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--gradient);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-nav i {
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        /* TOP HEADER */
+        .top-header {
+            background: white;
+            padding: 25px 30px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(0, 102, 204, 0.1);
+        }
+
+        .welcome-box h2 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .welcome-box p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* BOUTONS (cohérents avec index.html) */
+        .btn {
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+        }
+
+        /* STATS CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 102, 204, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .stat-info h3 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .stat-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.15);
+        }
+
+        /* CONTENT CARDS */
+        .content-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 102, 204, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .card-header h2 {
+            color: var(--dark);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* TABLES */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .admin-table th {
+            text-align: left;
+            padding: 18px 15px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f7ff 100%);
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .admin-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid var(--gray-200);
+            vertical-align: middle;
+            color: #555;
+        }
+
+        .admin-table tr {
+            transition: var(--transition);
+        }
+
+        .admin-table tr:hover {
+            background: #f8fafc;
+        }
+
+        /* BADGES */
+        .badge {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-primary {
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .badge-danger {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+        }
+
+        /* MESSAGES */
+        .message-preview {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #666;
+        }
+
+        .full-message {
+            white-space: pre-wrap;
+            line-height: 1.6;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-200);
+            margin: 15px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* SERVICES TABLE */
+        .service-icon-cell {
+            font-size: 1.8rem;
+            text-align: center;
+            width: 60px;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        /* EMPTY STATES */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-600);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .admin-sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .admin-sidebar {
+                width: 80px;
+                padding: 20px 0;
+            }
+            .sidebar-header h1,
+            .sidebar-nav span,
+            .admin-info,
+            .sidebar-footer {
+                display: none;
+            }
+            .logo-admin {
+                justify-content: center;
+            }
+            .water-drop-admin {
+                font-size: 2rem;
+            }
+            .sidebar-nav a {
+                justify-content: center;
+                padding: 15px;
+            }
+            .sidebar-nav i {
+                font-size: 1.3rem;
+            }
+            .main-content {
+                margin-left: 80px;
+                padding: 20px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 20px;
+            }
+            .header-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .admin-table {
+                display: block;
+                overflow-x: auto;
+            }
+            .content-card {
+                padding: 20px;
+            }
+            .stat-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .service-actions {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 15px;
+            }
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+            .stat-info h3 {
+                font-size: 2rem;
+            }
+            .stat-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="logo-admin">
+                <span class="water-drop-admin">💦</span>
+                <h1>CHT ADMIN</h1>
+            </div>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Tableau de bord administrateur</p>
+        </div>
+
+        <div class="admin-info">
+            <h3>{{ username }}</h3>
+            <p>Administrateur principal</p>
+        </div>
+
+        <ul class="sidebar-nav">
+            <li>
+                <a href="#dashboard" class="active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#messages">
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+            </li>
+            <li>
+                <a href="#services">
+                    <i class="fas fa-cogs"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="#media">
+                    <i class="fas fa-photo-video"></i>
+                    <span>Médias</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('admin_logout') }}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <p>v2.0 💦 2026</p>
+            <p>CHT Computer Admin</p>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div class="welcome-box">
+                <h2><i class="fas fa-user-shield"></i> Bienvenue, {{ username }} 💦</h2>
+                <p>Gestion complète de votre site CHT Computer. Dernière connexion : Aujourd'hui</p>
+            </div>
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir le site
+                </a>
+<a href="{{ url_for('admin_logout') }}" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </a>
+            </div>
+        </header>
+
+        <!-- STATISTIQUES -->
+        <section class="stats-grid" id="dashboard">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>{{ services|length }}</h3>
+                    <p>Services actifs</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>{{ contacts|length }}</h3>
+                    <p>Messages reçus</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>{{ media_list|length }}</h3>
+                    <p>Fichiers médias</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-photo-video"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>💦</h3>
+                    <p>Système actif</p>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- MESSAGES DES CLIENTS -->
+        <section class="content-card" id="messages">
+            <div class="card-header">
+                <h2><i class="fas fa-inbox"></i> Messages des clients</h2>
+                <span class="badge badge-primary">{{ contacts|length }} total</span>
+            </div>
+
+            {% if contacts %}
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Service concerné</th>
+                            <th>Message</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contact in contacts %}
+                        <tr>
+                            <td style="font-size: 0.85rem; color: #888;">
+                                {{ contact.created_at[:10] if contact.created_at else 'N/A' }}
+                            </td>
+                            <td>
+                                <strong>{{ contact.name }}</strong><br>
+                                <small style="color: #666;">
+                                    <i class="fas fa-phone"></i> {{ contact.phone or '-' }}<br>
+                                    <i class="fas fa-envelope"></i> {{ contact.email or '-' }}
+                                </small>
+                            </td>
+                            <td>
+                                <span class="badge badge-primary">{{ contact.service_title or 'Général' }}</span>
+                            </td>
+                            <td class="message-preview" title="{{ contact.message }}">
+                                {{ contact.message[:60] }}...
+                            </td>
+                            <td>
+                                <div class="service-actions">
+                                    <button class="btn btn-success btn-small view-message-btn" 
+                                            data-message="{{ contact.message }}"
+                                            data-name="{{ contact.name }}"
+                                            data-date="{{ contact.created_at if contact.created_at else '' }}"
+                                            data-service="{{ contact.service_title or 'Général' }}">
+                                        <i class="fas fa-eye"></i> Lire
+                                    </button>
+                                    <button class="btn btn-danger btn-small delete-message-btn" 
+                                            data-id="{{ contact.id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-envelope-open-text"></i>
+                <p>📭 Aucun message pour le moment</p>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- GESTION DES SERVICES -->
+        <section class="content-card" id="services">
+            <div class="card-header">
+                <h2><i class="fas fa-wrench"></i> Gestion des Services</h2>
+                <button class="btn btn-accent" id="addServiceBtn">
+                    <i class="fas fa-plus"></i> Ajouter un service
+                </button>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Icône</th>
+                            <th>Nom du Service</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in services %}
+                        <tr>
+                            <td style="font-weight: 600; color: var(--primary);">
+                                #{{ service.id }}
+                            </td>
+                            <td class="service-icon-cell">
+                                {{ service.icon }}
+                            </td>
+                            <td>
+                                <strong>{{ service.title }}</strong>
+                            </td>
+                            <td style="color: #666; font-size: 0.9rem;">
+                                {{ service.description[:70] }}...
+                            </td>
+                            <td>
+                                <div class="service-actions">
+                                    <a href="{{ url_for('admin_media', service_id=service.id) }}" 
+                                       class="btn btn-success btn-small" 
+                                       title="Gérer les médias">
+                                        <i class="fas fa-images"></i> Médias
+                                    </a>
+                                    <a href="{{ url_for('service_detail', service_id=service.id) }}" 
+                                       class="btn btn-accent btn-small" 
+                                       target="_blank" 
+                                       title="Voir sur le site">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- APERÇU DES MÉDIAS -->
+        <section class="content-card" id="media">
+            <div class="card-header">
+                <h2><i class="fas fa-photo-video"></i> Aperçu des médias uploadés</h2>
+                <span class="badge badge-success">{{ media_list|length }} fichiers</span>
+            </div>
+
+            {% if media_list %}
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Fichier</th>
+                            <th>Type</th>
+                            <th>Service lié</th>
+                            <th>Date d'upload</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for media in media_list %}
+                        <tr>
+                            <td>
+                                <strong>{{ media.filename }}</strong>
+                            </td>
+                            <td>
+                                <span class="badge badge-{{ 'primary' if media.file_type == 'image' else 'warning' }}">
+                                    {{ media.file_type }}
+                                </span>
+                            </td>
+                            <td>
+                                {% for service in services %}
+                                    {% if service.id == media.service_id %}
+                                        {{ service.title }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td style="font-size: 0.85rem; color: #888;">
+                                {{ media.uploaded_at[:10] if media.uploaded_at else 'N/A' }}
+                            </td>
+                            <td>
+                                <div class="service-actions">
+                                    <a href="{{ url_for('static', filename='uploads/' + media.filename) }}" 
+                                       class="btn btn-primary btn-small" 
+                                       target="_blank">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-image"></i>
+                <p>📁 Aucun média uploadé pour le moment</p>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+
+    <!-- MODAL POUR VOIR UN MESSAGE COMPLET -->
+    <div class="modal-overlay" id="messageModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope"></i> Message complet</h3>
+                <button class="modal-close" id="closeMessageModal">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Contenu dynamique -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ANIMATIONS D'ENTRÉE
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des cartes stats
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Animation des lignes de table
+            const tableRows = document.querySelectorAll('.admin-table tbody tr');
+            tableRows.forEach((row, index) => {
+                row.style.opacity = '0';
+                row.style.transform = 'translateX(-20px)';
+                setTimeout(() => {
+                    row.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateX(0)';
+                }, 300 + (index * 50));
+            });
+
+            // Menu sidebar interactif
+            const menuLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    menuLinks.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        // GESTION DES MESSAGES
+        const messageModal = document.getElementById('messageModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeMessageModal = document.getElementById('closeMessageModal');
+
+        // Afficher un message complet
+        document.querySelectorAll('.view-message-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const message = this.getAttribute('data-message');
+                const name = this.getAttribute('data-name');
+                const date = this.getAttribute('data-date');
+                const service = this.getAttribute('data-service');
+                
+                modalContent.innerHTML = `
+                    <div style="margin-bottom: 20px;">
+                        <p><strong>Client :</strong> ${name}</p>
+                        <p><strong>Date :</strong> ${date}</p>
+                        <p><strong>Service concerné :</strong> ${service}</p>
+                    </div>
+                    <div class="full-message">${message}</div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button class="btn btn-danger" id="deleteFromModal" data-id="${this.getAttribute('data-id')}">
+                            <i class="fas fa-trash"></i> Supprimer ce message
+                        </button>
+                    </div>
+                `;
+                
+                messageModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Ajouter l'événement de suppression depuis le modal
+                document.getElementById('deleteFromModal')?.addEventListener('click', function() {
+                    const messageId = this.getAttribute('data-id');
+                    deleteMessage(messageId);
+                });
+            });
+        });
+
+        // Fermer le modal
+        closeMessageModal.addEventListener('click', function() {
+            messageModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Fermer le modal en cliquant en dehors
+        messageModal.addEventListener('click', function(e) {
+            if (e.target === messageModal) {
+                messageModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // SUPPRIMER UN MESSAGE
+        document.querySelectorAll('.delete-message-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const messageId = this.getAttribute('data-id');
+                deleteMessage(messageId);
+            });
+        });
+
+        function deleteMessage(messageId) {
+            if (confirm('⚠️ Êtes-vous sûr de vouloir supprimer ce message ? Cette action est irréversible.')) {
+                // Envoyer la requête de suppression
+                fetch(`/admin/message/${messageId}/delete`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Fermer le modal si ouvert
+                        messageModal.classList.remove('active');
+                        document.body.style.overflow = '';
+                        
+                        // Rafraîchir la page
+                        location.reload();
+                    } else {
+                        alert('Erreur lors de la suppression : ' + (data.error || 'Erreur inconnue'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de la suppression du message.');
+                });
+            }
+        }
+
+        // BOUTON AJOUTER UN SERVICE (désactivé pour l'instant)
+        document.getElementById('addServiceBtn')?.addEventListener('click', function() {
+            alert('⚠️ La création de nouveaux services sera disponible dans une prochaine mise à jour.');
+        });
+
+        // PROTECTION CONTRE LES TAPES ACCIDENTELS
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && messageModal.classList.contains('active')) {
+                messageModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>

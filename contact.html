@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Cht 💦 Computer | Votre partenaire informatique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --secondary: #0099ff;
+            --accent: #ff6600;
+            --dark: #1a1e2c;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, #0055aa 0%, #0077cc 100%);
+            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 15px 35px rgba(0, 102, 204, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 100%);
+            color: var(--gray-800);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header cohérent avec les autres pages */
+        .header {
+            background: linear-gradient(rgba(0, 102, 204, 0.95), rgba(0, 153, 255, 0.95)),
+                        url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=50');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.25);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gradient);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-box h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .water-symbol {
+            font-size: 3.2rem;
+            animation: drop 2s infinite ease-in-out;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes drop {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        .header-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            letter-spacing: 2px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 25px auto 0;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 25px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+        }
+
+        /* Bouton Retour */
+        .back-nav {
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: var(--primary);
+            padding: 14px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 2px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 102, 204, 0.1), transparent);
+            transition: left 0.6s;
+            z-index: -1;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 102, 204, 0.3);
+            border-color: var(--primary);
+        }
+
+        .back-btn:hover::before {
+            left: 100%;
+        }
+
+        .back-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Cartes cohérentes */
+        .card {
+            background: white;
+            padding: 45px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        /* Titres de section */
+        .section-title {
+            color: var(--dark);
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* Groupes de formulaire professionnels */
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+        }
+
+        .required::after {
+            content: ' *';
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            background: var(--gray-100);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+            color: var(--gray-800);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 153, 255, 0.15);
+        }
+
+        /* Grille responsive */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
+        /* Bouton d'envoi premium */
+        .btn-submit {
+            width: 100%;
+            padding: 20px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3);
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+            z-index: -1;
+        }
+
+        .btn-submit:hover {
+            background: var(--gradient-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 102, 204, 0.4);
+        }
+
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+
+        .btn-submit i {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-submit:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Alertes professionnelles */
+        .alert {
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin-bottom: 35px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-15px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            border-color: #10b981;
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            border-color: #ef4444;
+        }
+
+        /* Section infos de contact premium */
+        .info-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 28px;
+            padding: 25px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-item:hover {
+            transform: translateX(8px);
+            background: white;
+            box-shadow: var(--card-shadow);
+        }
+
+        .info-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
+        .info-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            background: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .info-item:hover .info-icon {
+            transform: scale(1.1);
+            background: var(--gradient);
+            color: white;
+        }
+
+        .info-text h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .info-text p {
+            font-size: 1.05rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* Section sécurité premium */
+        .security-note {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, #004e92 100%);
+            color: white;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .security-note i {
+            font-size: 2.5rem;
+            margin-bottom: 18px;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .security-note p {
+            font-size: 1rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Footer identique aux autres pages */
+        .footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo span {
+            font-size: 2.5rem;
+            animation: drop 2s infinite ease-in-out;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .footer p {
+            opacity: 0.9;
+            margin: 10px 0;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .footer-contact div:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-top: 40px;
+            }
+            
+            .header {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-box h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 35px 25px;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .info-icon {
+                margin: 0 auto;
+            }
+            
+            .footer-contact {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-box h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header cohérent -->
+    <header class="header">
+        <div class="logo-box">
+            <span class="water-symbol">💦</span>
+            <h1>CHT COMPUTER</h1>
+            <span class="water-symbol">💦</span>
+        </div>
+        <p class="header-subtitle">VOTRE PARTENAIRE INFORMATIQUE DE CONFIANCE</p>
+        <p class="tagline">Contactez-nous pour des solutions adaptées à vos besoins</p>
+    </header>
+
+    <div class="container">
+        <!-- Bouton de retour -->
+        <div class="back-nav">
+            <a href="/" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Retour à l'accueil
+            </a>
+        </div>
+
+        <!-- Carte Formulaire -->
+        <div class="card">
+            <h2 class="section-title"><i class="fas fa-paper-plane"></i> Formulaire de Contact</h2>
+            
+            {% if error %}
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
+            {% endif %}
+            
+            {% if success %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> {{ success }}
+            </div>
+            {% endif %}
+            
+            <form method="POST" id="contactForm">
+                <!-- Nom (obligatoire) -->
+                <div class="form-group">
+                    <label class="required"><i class="fas fa-user"></i> Nom complet</label>
+                    <input type="text" name="name" class="form-control"
+                           placeholder="Ex: Jean Nzuzi" required
+minlength="2" maxlength="100"
+                           title="Veuillez entrer votre nom complet (2-100 caractères)">
+                </div>
+                
+                <!-- Grille Téléphone/Email -->
+                <div class="form-grid">
+                    <!-- Téléphone (obligatoire) -->
+                    <div class="form-group">
+                        <label class="required"><i class="fas fa-phone"></i> Téléphone</label>
+                        <input type="tel" name="phone" class="form-control"
+                               placeholder="Ex: +243 81 57 70 833 ou 081 57 70 833" required
+                               pattern="^(\+?243\s?)?(0)?\d{2}\s?\d{3}\s?\d{3,4}$"
+                               title="Format accepté : +243 XX XXX XXX ou 0XX XXX XXX">
+                        <small style="color: var(--gray-600); font-size: 0.9rem; display: block; margin-top: 8px;">
+                            <i class="fas fa-info-circle"></i> Format international (+243) ou local (0XX)
+                        </small>
+                    </div>
+                    
+                    <!-- Email (optionnel) -->
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email (optionnel)</label>
+                        <input type="email" name="email" class="form-control"
+                               placeholder="votre@email.com"
+                               title="Votre adresse email pour la réponse">
+                        <small style="color: var(--gray-600); font-size: 0.9rem; display: block; margin-top: 8px;">
+                            <i class="fas fa-comment"></i> Nous répondons généralement par WhatsApp ou appel
+                        </small>
+                    </div>
+                </div>
+                
+                <!-- Service souhaité -->
+                <div class="form-group">
+                    <label><i class="fas fa-concierge-bell"></i> Service souhaité (optionnel)</label>
+                    <select id="service_id" name="service_id" class="form-control">
+                        <option value="">Sélectionnez un service</option>
+                        {% for service in services %}
+                        <option value="{{ service.id }}">{{ service.icon }} {{ service.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <!-- Message (obligatoire) -->
+                <div class="form-group">
+                    <label class="required"><i class="fas fa-comment-dots"></i> Votre Message</label>
+                    <textarea name="message" class="form-control"
+                              style="min-height: 160px; resize: vertical;"
+                              required placeholder="Comment pouvons-nous vous aider ? Décrivez votre besoin en détail..."
+                              minlength="10" maxlength="2000"
+                              title="Veuillez décrire votre demande (10-2000 caractères)"></textarea>
+                    <small style="color: var(--gray-600); font-size: 0.9rem; display: block; margin-top: 8px;">
+                        <i class="fas fa-lightbulb"></i> Plus votre demande est précise, mieux nous pouvons vous aider
+                    </small>
+                </div>
+                
+                <!-- Bouton d'envoi -->
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> ENVOYER LE MESSAGE
+                </button>
+            </form>
+        </div>
+        
+        <!-- Carte Informations -->
+        <div class="card">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> Nos Coordonnées</h2>
+            
+            <!-- Localisation -->
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="info-text">
+                    <h4>Localisation</h4>
+                    <p>Kinshasa, République Démocratique du Congo</p>
+                    <p style="font-size: 0.95rem; color: var(--gray-600); margin-top: 8px;">
+                        <i class="fas fa-globe-africa"></i> Service disponible dans toute la RDC
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Support -->
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-headset"></i></div>
+                <div class="info-text">
+                    <h4>Support Direct</h4>
+                    <p style="font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 5px;">
+                        +243 81 57 70 833
+                    </p>
+                    <p>chtcomputer1@gmail.com</p>
+                    <p style="font-size: 0.95rem; color: var(--gray-600); margin-top: 8px;">
+                        <i class="fas fa-bolt"></i> Réponse rapide garantie
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Disponibilité -->
+            <div class="info-item">
+                <div class="info-icon"><i class="fas fa-clock"></i></div>
+                <div class="info-text">
+                    <h4>Disponibilité</h4>
+                    <p><strong>Lundi - Samedi :</strong> 8h00 - 18h00</p>
+                    <p><strong>Urgences :</strong> 24h/7j via WhatsApp 💦</p>
+                    <p style="font-size: 0.95rem; color: var(--gray-600); margin-top: 8px;">
+                        <i class="fas fa-calendar-check"></i> Prise de rendez-vous flexible
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Note de sécurité -->
+            <div class="security-note">
+                <i class="fas fa-shield-alt"></i>
+                <p>Vos informations sont sécurisées et confidentielles. Nous ne partagerons jamais vos données personnelles avec des tiers.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer identique -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>💦</span>
+                <h3>CHT COMPUTER</h3>
+            </div>
+            <p>Votre partenaire de confiance en solutions informatiques professionnelles</p>
+            <div class="footer-contact">
+                <div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>République Démocratique du Congo</span>
+                </div>
+                <div>
+                    <i class="fas fa-phone"></i>
+                    <span>+243 81 57 70 833</span>
+                </div>
+                <div>
+                    <i class="fas fa-envelope"></i>
+                    <span>chtcomputer1@gmail.com</span>
+                </div>
+            </div>
+            <p class="copyright">
+                © 2026 CHT COMPUTER - Tous droits réservés | 
+                <span style="color: var(--secondary);">Conçu avec expertise pour l'excellence</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-remplissage quand on vient d'un service
+            const urlParams = new URLSearchParams(window.location.search);
+            const serviceId = urlParams.get('service_id');
+            
+            if (serviceId) {
+                const serviceSelect = document.getElementById('service_id');
+                serviceSelect.value = serviceId;
+                
+                const serviceOption = serviceSelect.options[serviceSelect.selectedIndex];
+                const serviceName = serviceOption.text.replace(/^[^a-zA-Z0-9]*/, '');
+                
+                const messageField = document.querySelector('textarea[name="message"]');
+                messageField.value = 
+`Bonjour,
+
+Je souhaite obtenir plus d'informations concernant le service "${serviceName}".
+
+Pourriez-vous me contacter pour discuter des détails et obtenir un devis ?
+
+Cordialement.`;
+            }
+
+            // Validation améliorée du formulaire
+            const form = document.getElementById('contactForm');
+            form.addEventListener('submit', function(e) {
+                const phone = document.querySelector('input[name="phone"]').value.trim();
+                const message = document.querySelector('textarea[name="message"]').value.trim();
+                
+                // Validation du téléphone
+                const phoneRegex = /^(\+?243\s?)?(0)?\d{2}\s?\d{3}\s?\d{3,4}$/;
+                if (!phoneRegex.test(phone)) {
+                    e.preventDefault();
+                    showAlert('Veuillez entrer un numéro de téléphone valide\n' +
+                              'Exemples :\n' +
+                              '• +243 81 57 70 833 (format international)\n' +
+                              '• 081 57 70 833 (format local)\n' +
+                              '• 81 577 0833 (format simplifié)', 'error');
+                    return false;
+                }
+                
+                // Validation du message
+                if (message.length < 10) {
+                    e.preventDefault();
+                    showAlert('Veuillez décrire votre demande plus en détail (minimum 10 caractères)', 'error');
+                    return false;
+                }
+                
+                if (message.length > 2000) {
+                    e.preventDefault();
+                    showAlert('Votre message est trop long (maximum 2000 caractères)', 'error');
+                    return false;
+                }
+                
+                // Animation d'envoi
+                const submitBtn = document.querySelector('.btn-submit');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVOI EN COURS...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+
+            // Fonction d'alerte personnalisée
+            function showAlert(message, type) {
+                const alertBox = document.createElement('div');
+                alertBox.className = `alert alert-${type}`;
+                alertBox.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    max-width: 400px;
+                    z-index: 9999;
+                    animation: slideIn 0.3s ease;
+                `;
+                
+                alertBox.innerHTML = `
+                    <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'check-circle'}"></i>
+                    <span style="white-space: pre-line;">${message}</span>
+                `;
+                
+                document.body.appendChild(alertBox);
+                
+                setTimeout(() => {
+                    alertBox.style.animation = 'slideOut 0.3s ease forwards';
+                    setTimeout(() => {
+                        if (alertBox.parentNode) {
+                            document.body.removeChild(alertBox);
+                        }
+                    }, 300);
+                }, 5000);
+                
+                // Ajouter les animations
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Animation d'apparition des cartes
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.95)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 200);
+            });
+
+            // Animation des éléments d'info
+            const infoItems = document.querySelectorAll('.info-item');
+            infoItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, 600 + (index * 150));
+            });
+        });
+    </script>
+</body>
+</html>

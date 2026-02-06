@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Connexion Admin | CHT Computer</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* VARIABLES GLOBALES (cohérentes avec index.html et service_detail.html) */
+        :root {
+            --primary: #0066cc;
+            --secondary: #0099ff;
+            --accent: #ff6600;
+            --accent-hover: #e55a00;
+            --dark: #1a1e2c;
+            --light-bg: #f8fafc;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, #0055aa 0%, #0077cc 100%);
+            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 15px 35px rgba(0, 102, 204, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 100%);
+            color: var(--gray-800);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER IDENTIQUE aux autres pages */
+        .header {
+            background: linear-gradient(rgba(0, 102, 204, 0.95), rgba(0, 153, 255, 0.95)),
+                        url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=50');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.25);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gradient);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-box h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .water-symbol {
+            font-size: 3.2rem;
+            animation: drop 2s infinite ease-in-out;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes drop {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        .header-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            letter-spacing: 2px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        /* CONTAINER PRINCIPAL */
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 0 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* CARTE DE CONNEXION (style cohérent avec service_detail) */
+        .login-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 50px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient);
+            z-index: 1;
+        }
+
+        .login-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, transparent 40%, rgba(0, 102, 204, 0.03) 100%);
+            border-radius: 0 0 0 200px;
+            pointer-events: none;
+        }
+
+        /* TITRE DE CONNEXION */
+        .login-title {
+            text-align: center;
+            color: var(--dark);
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .login-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .login-title i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        /* MESSAGES D'ALERTE */
+        .alert {
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideIn 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #fee 0%, #fdd 100%);
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .alert-error::before {
+            background: #dc3545;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d1fae5 0%, #b6f3d6 100%);
+            color: #065f46;
+            border: 2px solid #10b981;
+        }
+
+        .alert-success::before {
+            background: #10b981;
+        }
+
+        /* FORMULAIRE */
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            background: var(--light-bg);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            color: var(--dark);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 153, 255, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: var(--gray-600);
+            opacity: 0.7;
+        }
+
+        /* BOUTON AFFICHER/MASQUER MOT DE PASSE */
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-600);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        /* BOUTON DE CONNEXION (style cohérent avec index) */
+        .btn-login {
+            width: 100%;
+            padding: 20px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+            z-index: -1;
+        }
+
+        .btn-login:hover {
+            background: var(--gradient-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 102, 204, 0.4);
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        .btn-login:active {
+            transform: translateY(-2px);
+        }
+
+        /* NOTE DE SÉCURITÉ */
+        .security-note {
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%);
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-note h4 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+        }
+
+        .security-note p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* LIEN RETOUR */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            text-decoration: none;
+            margin-top: 40px;
+            font-weight: 600;
+            padding: 14px 30px;
+            background: white;
+            border-radius: 50px;
+            transition: var(--transition);
+            border: 2px solid rgba(0, 102, 204, 0.1);
+            box-shadow: var(--card-shadow);
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 102, 204, 0.3);
+            border-color: var(--primary);
+        }
+
+        /* COMPTEUR DE TENTATIVES */
+        .attempts-counter {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+            border-radius: var(--border-radius);
+            color: #856404;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* FOOTER IDENTIQUE aux autres pages */
+        .footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo span {
+            font-size: 2.5rem;
+            animation: drop 2s infinite ease-in-out;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .footer p {
+            opacity: 0.9;
+            margin: 10px 0;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .footer-contact div:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* RESPONSIVE DESIGN (cohérent avec les autres) */
+        @media (max-width: 768px) {
+            .logo-box h1 {
+                font-size: 2.2rem;
+            }
+            
+            .login-card {
+                padding: 40px 30px;
+            }
+            
+            .login-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-contact {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-box h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1rem;
+            }
+            
+            .login-card {
+                padding: 30px 20px;
+            }
+            
+            .login-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .back-link {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER IDENTIQUE AUX AUTRES PAGES -->
+    <header class="header">
+        <div class="logo-box">
+            <span class="water-symbol">💦</span>
+            <h1>CHT COMPUTER</h1>
+            <span class="water-symbol">💦</span>
+        </div>
+        <p class="header-subtitle">ESPACE ADMINISTRATION SÉCURISÉ</p>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <div class="container">
+        <div class="login-card">
+            <h2 class="login-title">
+                <i class="fas fa-lock"></i> Connexion Administrateur
+            </h2>
+
+            <!-- Messages d'erreur/succès (pour Flask/Jinja2) -->
+            {% if error %}
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>{{ error }}</span>
+            </div>
+            {% endif %}
+
+            {% if success %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ success }}</span>
+            </div>
+            {% endif %}
+
+            <!-- Compteur de tentatives -->
+            {% if attempts and attempts > 2 %}
+            <div class="attempts-counter">
+                <i class="fas fa-exclamation-triangle"></i>
+                Tentative {{ attempts }}/5 - Après 5 échecs, compte bloqué 15 minutes
+            </div>
+            {% endif %}
+
+            <!-- FORMULAIRE DE CONNEXION -->
+            <form method="POST" id="loginForm">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user-circle"></i> Identifiant Administrateur
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" id="username" name="username" class="form-control"
+                               placeholder="admin@chtcomputer.com" required autofocus autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-key"></i> Mot de passe
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" class="form-control"
+                               placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Se Connecter
+                </button>
+            </form>
+
+            <!-- NOTE DE SÉCURITÉ -->
+            <div class="security-note">
+                <h4><i class="fas fa-shield-alt"></i> Accès Restreint & Surveillé</h4>
+                <p>
+                    Cet espace est exclusivement réservé aux administrateurs autorisés de <strong>CHT Computer</strong>.
+Toutes les connexions sont journalisées, cryptées et surveillées. Toute tentative non autorisée fera l'objet de mesures de sécurité appropriées.
+                    En cas de problème d'accès, contactez le support technique.
+                </p>
+            </div>
+
+            <!-- LIEN RETOUR VERS L'ACCUEIL -->
+            <center>
+                <a href="{{ url_for('index') }}" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Retour au site public
+                </a>
+            </center>
+        </div>
+    </div>
+
+    <!-- FOOTER IDENTIQUE AUX AUTRES PAGES -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>💦</span>
+                <h3>CHT COMPUTER</h3>
+            </div>
+            <p>Votre partenaire de confiance en solutions informatiques professionnelles</p>
+            <div class="footer-contact">
+                <div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>République Démocratique du Congo</span>
+                </div>
+                <div>
+                    <i class="fas fa-phone"></i>
+                    <span>+243 81 57 70 833</span>
+                </div>
+                <div>
+                    <i class="fas fa-envelope"></i>
+                    <span>chtcomputer1@gmail.com</span>
+                </div>
+            </div>
+            <p class="copyright">
+                © 2026 CHT COMPUTER - Tous droits réservés |
+                <span style="color: var(--secondary);">Conçu avec expertise pour l'excellence</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // ANIMATION D'ENTRÉE (cohérente avec les autres pages)
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginCard = document.querySelector('.login-card');
+            loginCard.style.opacity = '0';
+            loginCard.style.transform = 'translateY(30px) scale(0.95)';
+            
+            setTimeout(() => {
+                loginCard.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                loginCard.style.opacity = '1';
+                loginCard.style.transform = 'translateY(0) scale(1)';
+            }, 200);
+
+            // Focus sur le champ identifiant
+            document.getElementById('username').focus();
+        });
+
+        // AFFICHER/MASQUER MOT DE PASSE
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Changer l'icône
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+
+        // PROTECTION ANTI-BRUTEFORCE
+        let submitCount = 0;
+        const loginForm = document.getElementById('loginForm');
+        const submitBtn = loginForm.querySelector('.btn-login');
+        
+        loginForm.addEventListener('submit', function(e) {
+            submitCount++;
+            
+            if (submitCount > 3) {
+                // Désactiver le bouton temporairement
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vérification...';
+                submitBtn.disabled = true;
+                
+                // Réactiver après délai
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Se Connecter';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+        });
+
+        // VALIDATION CLIENT
+        loginForm.addEventListener('submit', function(e) {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            if (!username || !password) {
+                e.preventDefault();
+                showAlert('Veuillez remplir tous les champs.', 'error');
+                return;
+            }
+            
+            // Simulation de chargement
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authentification...';
+        });
+
+        // FONCTION POUR AFFICHER DES ALERTES TEMPORAIRES
+        function showAlert(message, type) {
+            // Supprimer les anciennes alertes
+            const oldAlerts = document.querySelectorAll('.alert:not(.alert-error):not(.alert-success)');
+            oldAlerts.forEach(alert => alert.remove());
+            
+            // Créer la nouvelle alerte
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'check-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Insérer avant le formulaire
+            loginForm.parentNode.insertBefore(alertDiv, loginForm);
+            
+            // Supprimer après 5 secondes
+            setTimeout(() => {
+                alertDiv.style.opacity = '0';
+                alertDiv.style.transform = 'translateX(-20px)';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 5000);
+        }
+
+        // PROTECTION CONTRE L'INSPECTION (basique)
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.type === 'password') {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

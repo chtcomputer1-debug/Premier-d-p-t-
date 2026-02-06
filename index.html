@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cht 💦 Computer - Services Informatiques Professionnels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --secondary: #0099ff;
+            --accent: #ff6600;
+            --dark: #1a1e2c;
+            --light-bg: #f8fafc;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, #0055aa 0%, #0077cc 100%);
+            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 15px 35px rgba(0, 102, 204, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f9ff 0%, #ffffff 100%);
+            color: var(--gray-800);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header cohérent avec service_detail */
+        .header {
+            background: linear-gradient(rgba(0, 102, 204, 0.95), rgba(0, 153, 255, 0.95)),
+                        url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=50');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.25);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gradient);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-box h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .water-symbol {
+            font-size: 3.2rem;
+            animation: drop 2s infinite ease-in-out;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes drop {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        .header-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            letter-spacing: 2px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 25px auto 0;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+
+        /* Section Hero cohérente */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-content h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .hero-content h2 span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-content h2 span::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: rgba(0, 102, 204, 0.15);
+            z-index: -1;
+            border-radius: 5px;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--gray-600);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 2px solid white;
+        }
+
+        .hero-image:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 25px;
+        }
+
+        /* Titres de section cohérents */
+        .section-title {
+            text-align: center;
+            color: var(--dark);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray-600);
+            margin-bottom: 60px;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        /* Grille de services cohérente */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin: 50px 0;
+        }
+
+        /* Cartes de service cohérentes avec service_detail */
+        .service-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px 35px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--secondary);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3.2rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-title {
+            color: var(--dark);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.4;
+            min-height: 2.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-desc {
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            flex-grow: 1;
+            font-size: 1.05rem;
+        }
+
+        /* Boutons cohérents avec service_detail */
+        .service-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.2);
+            letter-spacing: 0.5px;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .service-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+            z-index: -1;
+        }
+
+        .service-btn:hover {
+            background: var(--gradient-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3);
+        }
+
+        .service-btn:hover::before {
+            left: 100%;
+        }
+
+        .service-btn span {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .service-btn:hover span {
+            transform: translateX(5px);
+        }
+
+        /* Barre d'action cohérente */
+        .action-bar {
+            background: white;
+            padding: 45px;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--card-shadow);
+            margin-top: 80px;
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        /* Boutons d'action cohérents */
+        .action-btn {
+            padding: 20px 45px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.15rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 240px;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+            z-index: -1;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--gradient-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2);
+        }
+
+        .btn-accent:hover {
+            background: #e55a00;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 102, 0, 0.3);
+        }
+
+        .action-btn i {
+            font-size: 1.4rem;
+            transition: transform 0.3s ease;
+        }
+
+        .action-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Footer identique à service_detail */
+        .footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-logo span {
+            font-size: 2.5rem;
+            animation: drop 2s infinite ease-in-out;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .footer p {
+            opacity: 0.9;
+            margin: 10px 0;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact div {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .footer-contact div:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Admin Access cohérent */
+        .admin-access {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .admin-btn {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+            transition: var(--transition);
+            font-size: 1.5rem;
+        }
+
+        .admin-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.6);
+        }
+
+        .admin-access.visible {
+            opacity: 1;
+        }
+
+        /* Responsive Design cohérent */
+        @media (max-width: 768px) {
+            .logo-box h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero {
+                flex-direction: column;
+                padding: 50px 20px;
+                text-align: center;
+                gap: 40px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .action-bar {
+                flex-direction: column;
+                align-items: center;
+                padding: 35px 25px;
+                margin-top: 60px;
+                gap: 25px;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
+                padding: 18px 35px;
+            }
+            
+            .admin-access {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .admin-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .footer-contact {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-box h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .service-card {
+                padding: 30px 25px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header cohérent avec service_detail -->
+    <header class="header">
+        <div class="logo-box">
+            <span class="water-symbol">💦</span>
+            <h1>CHT COMPUTER</h1>
+            <span class="water-symbol">💦</span>
+        </div>
+        <p class="header-subtitle">SOLUTIONS INFORMATIQUES PROFESSIONNELLES</p>
+        <p class="tagline">Votre partenaire technologique pour des solutions digitales innovantes et performantes</p>
+    </header>
+   <!-- Section Hero cohérente -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Solutions <span>informatiques</span> sur mesure pour votre entreprise</h2>
+            <p>💦 CHT COMPUTER est votre partenaire informatique de confiance à Kinshasa. Nous offrons des solutions pratiques et accessibles pour particuliers et petites entreprises, avec un service personnalisé et des tarifs transparents.</p>
+            <p>Notre équipe passionnée vous accompagne dans tous vos projets numériques, de la simple réparation à l'installation de réseaux. Chez nous, pas de jargon compliqué, juste des solutions qui fonctionnent et un suivi sérieux.</p>
+            <p>Des services informatiques simples, fiables et à votre portée.</p>
+        </div>
+        <div class="hero-image">
+            <img src="https://img-4.linternaute.com/ABXKhMbAXZGLYZ_h12UeQGJl2TI=/1500x/smart/6670675da1cc4c539926538636a0ecee/ccmcms-linternaute/10784129.jpg" 
+                 alt="Services informatiques CHT Computer">
+        </div>
+    </section>
+
+    <!-- Main Content cohérent -->
+    <div class="container">
+        <h2 class="section-title">NOS SERVICES</h2>
+        <p class="section-subtitle">Des solutions adaptées à chaque besoin. Cliquez sur un service pour découvrir nos offres détaillées.</p>
+
+        <!-- Services Grid -->
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card" onclick="window.location.href='/service/{{ service.id }}'">
+                <div class="service-icon">{{ service.icon }}</div>
+                <h3 class="service-title">{{ service.title }}</h3>
+                <p class="service-desc">{{ service.description }}</p>
+                <button class="service-btn">
+                    <span>🔍</span> Voir détails
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Action Bar cohérente -->
+        <div class="action-bar">
+            <button class="action-btn btn-primary" onclick="window.location.href='/contact'">
+                <i class="fas fa-phone-alt"></i> CONTACT & DEVIS
+            </button>
+            <button class="action-btn btn-accent" onclick="showAllServices()">
+                <i class="fas fa-clipboard-list"></i> CATALOGUE COMPLET
+            </button>
+        </div>
+    </div>
+
+    <!-- Bouton admin cohérent -->
+    <div class="admin-access" id="adminAccess">
+        <button class="admin-btn" onclick="window.location.href='/admin/login'" title="Accès administrateur">
+            <i class="fas fa-cogs"></i>
+        </button>
+    </div>
+
+    <!-- Footer identique à service_detail -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>💦</span>
+                <h3>CHT COMPUTER</h3>
+            </div>
+            <p>Votre partenaire de confiance en solutions informatiques professionnelles</p>
+            <div class="footer-contact">
+                <div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>République Démocratique du Congo</span>
+                </div>
+                <div>
+                    <i class="fas fa-phone"></i>
+                    <span>+243 81 57 70 833</span>
+                </div>
+                <div>
+                    <i class="fas fa-envelope"></i>
+                    <span>chtcomputer1@gmail.com</span>
+                </div>
+            </div>
+            <p class="copyright">
+                © 2026 CHT COMPUTER - Tous droits réservés | 
+                <span style="color: var(--secondary);">Conçu avec expertise pour l'excellence</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Fonction pour afficher tous les services
+        function showAllServices() {
+            fetch('/api/services')
+                .then(response => response.json())
+                .then(services => {
+                    let message = "📋 CATALOGUE COMPLET DES SERVICES CHT COMPUTER 💦\n\n";
+                    
+                    services.forEach(service => {
+                        message += `${service.icon} ${service.title}\n`;
+                        message += `${service.description}\n`;
+                        message += "─".repeat(40) + "\n\n";
+                    });
+                    
+                    message += "\n💦 Contactez-nous pour un devis personnalisé !";
+                    alert(message);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Impossible de charger les services. Veuillez réessayer.');
+                });
+        }
+
+        // Animation d'entrée cohérente avec service_detail
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des cartes de service
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.95)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 150);
+            });
+
+            // Animation de l'image hero
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage) {
+                heroImage.style.opacity = '0';
+                heroImage.style.transform = 'translateX(30px)';
+                setTimeout(() => {
+                    heroImage.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    heroImage.style.opacity = '1';
+                    heroImage.style.transform = 'translateX(0)';
+                }, 500);
+            }
+
+            // Animation de la barre d'action
+            const actionBar = document.querySelector('.action-bar');
+            if (actionBar) {
+                actionBar.style.opacity = '0';
+                actionBar.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    actionBar.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    actionBar.style.opacity = '1';
+                    actionBar.style.transform = 'translateY(0)';
+                }, 1000);
+            }
+        });
+
+        // Système d'accès admin par combinaison de touches
+        let adminKeySequence = [];
+        const adminAccess = document.getElementById('adminAccess');
+        
+        document.addEventListener('keydown', function(e) {
+            // Ajouter la touche à la séquence
+            adminKeySequence.push(e.key.toLowerCase());
+            
+            // Garder seulement les 8 dernières touches
+            if (adminKeySequence.length > 8) {
+                adminKeySequence.shift();
+            }
+            
+            // Vérifier si la séquence contient "chtadmin"
+            const sequenceStr = adminKeySequence.join('');
+            if (sequenceStr.includes('chtadmin')) {
+                adminAccess.classList.add('visible');
+                
+                // Réinitialiser la séquence après 5 secondes
+                setTimeout(() => {
+                    adminKeySequence = [];
+                    adminAccess.classList.remove('visible');
+                }, 5000);
+            }
+            
+            // Alternative: Ctrl+Alt+A pour afficher le bouton admin
+            if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'a') {
+                e.preventDefault();
+                adminAccess.classList.toggle('visible');
+            }
+        });
+
+        // Animation au survol des cartes (feedback tactile)
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
